@@ -3,6 +3,7 @@ package com.JWTDemo.Jwt_Demo.controller;
 import com.JWTDemo.Jwt_Demo.DTO.UserRequest;
 import com.JWTDemo.Jwt_Demo.DTO.UserResponse;
 import com.JWTDemo.Jwt_Demo.model.User;
+import com.JWTDemo.Jwt_Demo.service.JwtService;
 import com.JWTDemo.Jwt_Demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class UserController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtService jwtService;
+
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest request) {
         UserResponse userResponse = userService.saveUser(request);
@@ -37,7 +41,7 @@ public class UserController {
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword()));
 
         if(authentication.isAuthenticated()) {
-            System.out.println("User authenticated");
+            jwtService.generateToken(user.getName());
         } else {
             System.out.println("Login Failed.");
         }
