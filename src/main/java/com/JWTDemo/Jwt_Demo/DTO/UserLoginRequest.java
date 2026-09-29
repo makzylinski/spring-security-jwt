@@ -1,4 +1,6 @@
 package com.JWTDemo.Jwt_Demo.DTO;
 
-public record UserLoginRequest(String username, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record UserLoginRequest(@NotBlank String name, @NotBlank String password) {
 }
