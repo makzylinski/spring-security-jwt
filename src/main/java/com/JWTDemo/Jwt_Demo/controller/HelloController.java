@@ -10,4 +10,10 @@ public class HelloController {
     public String hello() {
         return "Hello";
     }
+
+    // Requires ROLE_ADMIN - example of role-based authorization
+    @GetMapping("/admin/hello")
+    public String adminHello() {
+        return "Hello admin";
+    }
 }
