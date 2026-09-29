@@ -35,17 +35,18 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@RequestBody User user) {
+    public String login(@RequestBody User user) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword()));
-
+        String token = null;
         if(authentication.isAuthenticated()) {
-            jwtService.generateToken(user.getName());
+             token = jwtService.generateToken(user.getName());
+            System.out.println(token);
         } else {
             System.out.println("Login Failed.");
         }
 
-        return new ResponseEntity<>(new UserResponse(100L, "test", "test"), HttpStatus.OK);
+        return token;
     }
 }
