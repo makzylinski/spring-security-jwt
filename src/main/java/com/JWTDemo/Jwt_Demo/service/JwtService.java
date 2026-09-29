@@ -1,6 +1,7 @@
 package com.JWTDemo.Jwt_Demo.service;
 
 import io.jsonwebtoken.Jwts;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -22,5 +23,13 @@ public class JwtService {
                 .expiration(new Date(now.getTime() + EXPIRATION_MS))
                 .signWith(secretKey)
                 .compact();
+    }
+
+    public String extractUserName(String token) {
+        return "";
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        return true;
     }
 }
